@@ -1,20 +1,23 @@
 def get_num_words(text):
     words = text.split()
-    count = 0
-    for _ in words:
-        count += 1
-    
-    return f"{count} words found in the document"
+    return len(words)
 
-def get_char_count(book_text):
-    char_count_dict = {}
-    words_arr = book_text.lower().split()
+def get_char_count(text):
+    char_count = {}
+    for char in text:
+        char_lower = char.lower()
+        if char_lower in char_count:
+            char_count[char_lower] += 1
+        else:
+            char_count[char_lower] = 1
+    return char_count
 
-    for word in words_arr:
-        for char in word:
-            if char in char_count_dict:
-                char_count_dict[char] += 1
-            else:
-                char_count_dict[char] = 1
+def sort_on(item):
+    return item["num"]
 
-    return char_count_dict
+def get_sorted_char_list(char_count):
+    char_list = []
+    for char in char_count:
+        char_list.append({"char": char, "num": char_count[char]})
+    char_list.sort(reverse=True, key=sort_on)
+    return char_list
